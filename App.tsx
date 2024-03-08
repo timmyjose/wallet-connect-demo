@@ -2,7 +2,10 @@ import '@walletconnect/react-native-compat'
 import { WagmiConfig } from 'wagmi'
 import { mainnet, polygon, arbitrum } from 'viem/chains'
 import { createWeb3Modal, defaultWagmiConfig, Web3Modal } from '@web3modal/wagmi-react-native'
-import ConnectView from './components/ConnectView'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NavigationContainer } from '@react-navigation/native'
+import Home from './src/Home'
+import ConnectDemo from './src/components/ConnectDemo'
 
 const projectId = 'a12eedba55522ed87542343db1629d8c'
 
@@ -26,10 +29,22 @@ createWeb3Modal({
   wagmiConfig
 })
 
+const Stack = createNativeStackNavigator()
+
+export type RootStackParamList = {
+  Home: undefined;
+  ConnectDemo: undefined;
+}
+
 export default function App() {
   return (
     <WagmiConfig config={wagmiConfig}>
-      <ConnectView />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name='Home' component={Home} />
+          <Stack.Screen name='ConnectDemo' component={ConnectDemo} />
+        </Stack.Navigator>
+      </NavigationContainer>
       <Web3Modal />
     </WagmiConfig>
   )
