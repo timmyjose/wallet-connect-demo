@@ -1,9 +1,12 @@
-import { W3mButton } from '@web3modal/wagmi-react-native'
+import { useWeb3Modal } from '@web3modal/wagmi-react-native'
+import { Button, Pressable, Text } from 'react-native'
 
 export default function ConnectView() {
+  const { open } = useWeb3Modal()
+
   return (
     <>
-      <W3mButton />
+      <Button title='Connect' onPress={() => open()} />
     </>
   )
 
